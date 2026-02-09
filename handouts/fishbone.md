@@ -1,7 +1,21 @@
-# Handout — Fishbone for “Why didn’t it scale?”
+# Handout — Fishbone (for “Why didn’t it scale?”)
+# 5.W Scaling Incident Diagnostic: The Fishbone Method
 
-Use this when people are guessing.
+**Objective:** Transition from "guessing" about failures to evidenced-based Root Cause Analysis (RCA).
 
+## The Diagnostic Mindset
+In production, you don't have time to read every line of Python. You need to know if you should **add more workers** (Scale Out), **give workers more power** (Scale Up), or **fix a slow dependency**. The Fishbone tells you which lever to pull.
+
+## The Scaling Failure Classes
+We categorise scaling pain into four "bottleneck classes":
+1. **Limits / Throttling:** You hit a hard safety cap set by the cloud provider (The "Throttles" metric).
+2. **Resources:** The worker ran out of physical memory or CPU (The "Exhausted Engine").
+3. **Dependencies:** An external API or database is slow, causing a massive backlog.
+4. **Data / Input:** The specific payload (e.g., a massive image) broke the scaling logic.
+
+## Rules of Engagement
+* **Evidence First:** You are forbidden from adding a cause to a "bone" unless you can point to a specific metric or log entry.
+* **One Safe Action:** Identify the immediate step to restore service, not just the long-term code fix.
 ## Effect (head of the fish)
 **Pipeline slow / failing during traffic spike**
 
