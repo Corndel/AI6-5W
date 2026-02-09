@@ -10,7 +10,7 @@ echo "Starting $N executions (burst) with launcher parallelism=$PARALLEL ..."
 
 started=0
 for i in $(seq 1 "$N"); do
-  INPUT="{"ticket_id":"T-$i","text":"I was charged twice for my subscription and need a refund."}"
+  INPUT=$(printf '{"ticket_id":"T-%s","text":"I was charged twice for my subscription and need a refund."}' "$i")
   aws stepfunctions start-execution --state-machine-arn "$SM_ARN" --input "$INPUT" >/dev/null &
   started=$((started+1))
   # Limit local CLI fan-out so CloudShell doesn't melt.
