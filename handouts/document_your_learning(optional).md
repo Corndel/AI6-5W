@@ -62,6 +62,18 @@
 
 ---
 
-### 6. Instructor / Peer Verification
+## Evidence checklist (quick mark)
+
+Aim to collect:
+1) Step Functions execution screenshot (happy path).  
+2) Step Functions execution screenshot showing failure at Embed (TooManyRequests) under burst.  
+3) CloudWatch dashboard screenshot showing throttles/duration under burst (before fix).  
+4) CloudWatch dashboard screenshot showing improved throttles/duration (after fix).  
+5) Completed RCA Tree + Fishbone (photo/scan is fine).  
+6) A one-paragraph incident report (or the template completed).
+
+---
+
+### Instructor / Peer Verification
 **Verified by:** ___________________
 **Feedback:**
