@@ -15,7 +15,7 @@
 - **Throttling**: requests being rejected due to hard limits (often concurrency/quotas).
 - **Cold start**: serverless start-up overhead for new runtime instances.
 
-Kubernetes transfer:
+Kubernetes "transferable" vocabulary (if you're familiar with DevOps/ Data Engineering):
 - Lambda concurrency ≈ number of pod replicas / autoscaler behaviour
 - Lambda memory ≈ pod requests/limits
 - Step Functions graph ≈ a DAG orchestrator view (Argo/Airflow)
