@@ -223,18 +223,6 @@ Resources:
                   "Payload.$": "$"
                 },
                 "OutputPath": "$.Payload",
-                "Retry": [
-                  {
-                    "ErrorEquals": [
-                      "Lambda.ServiceException",
-                      "Lambda.AWSLambdaException",
-                      "Lambda.SdkClientException"
-                    ],
-                    "IntervalSeconds": 1,
-                    "MaxAttempts": 2,
-                    "BackoffRate": 2.0
-                  }
-                ],
                 "Next": "Embed"
               },
               "Embed": {
