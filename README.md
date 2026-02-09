@@ -69,6 +69,6 @@ __The P95 duration__ (95th percentile) _is a performance metric indicating that 
 
 ## Key Concept
 An essential, but easy to grasp concept for today is AWS Lambda, so let's have a look how it works:
- ![How Lambda Works](aws_lambda.png)
+ ![How Lambda Works](aws_lambda.jpg)
 
 You're now ready to continue! Enjoy the workshop!
