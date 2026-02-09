@@ -64,7 +64,11 @@ Designed to be cheap and low-risk in a sandbox:
 
 ## Key Lingo
 Many of the terms that could be new to you are explained you in handouts/glossary.md.
-An important but somewhat confusing concept for today is P95, so let's look at it now:
+An important but somewhat confusing pterm for today is **P95**, so let's look at it now:
 __The P95 duration__ (95th percentile) _is a performance metric indicating that 95% of requests or transactions finish faster than a specific threshold, while the slowest 5% take longer. It is used to identify bottlenecks, measure the user experience for the slowest transactions, and ignore outliers that skew averages_
+
+## Key Concept
+An essential, but easy to grasp concept for today is AWS Lambda, so let's have a look how it works:
+ ![How Lambda Works](aws_lambda.png)
 
 You're now ready to continue! Enjoy the workshop!
