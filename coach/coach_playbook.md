@@ -1,18 +1,7 @@
-# AI6 Unit 5.W — Coach Playbook (FINAL)
+# AI6 5W Coach Playbook
 
-**Workshop title:** Orchestrating Complex ML Pipelines in Production  
+**Workshop title:** Orchestrating Complex ML Pipelines in Production (Scale or Fail)
 **Session length:** 5 hours (with lunch)  
-**Audience reality:** apprentices are early in Python; coaches are tired → keep it calm, visual, repeatable.
-
-## The spine (keep repeating this)
-- **Scaling is the job.**
-- **Orchestration is the mechanism.**
-- **Root Cause Analysis (RCA) is the safety net.**
-
-This workshop is an MVP by design:
-- learners **do not** write code
-- coaches **do not** debug Python
-- everything is **pre-built** and **evidence-driven**
 
 ---
 
@@ -22,7 +11,7 @@ Assume the **AWS Cloud Sandbox**:
 - Regions: **us-east-1** or **us-west-2** → we standardise on **us-east-1**
 - CloudShell supported (preferred)
 - Services we use: **Step Functions, Lambda, CloudWatch, CloudFormation**
-- We deliberately avoid “service zoo” complexity.
+- We deliberately avoid using too many services.
 
 ---
 
@@ -52,7 +41,7 @@ Answer (in this workshop):
 - The **model step** (Embed) is the bottleneck.
 - We scale **the bottleneck capacity** (Lambda reserved concurrency).
 
-If this point lands, the workshop succeeds.
+If this point lands, the workshop succeeds! :-)
 
 ---
 
@@ -88,7 +77,7 @@ That option lets you deploy the stack via a heredoc + `aws cloudformation deploy
 
 ---
 
-## 5) Run-of-show (timings you can trust)
+## 5) Run-of-show
 
 ### 10:00–10:20 — Opening narrative (Scaling is the job)
 - Use Morning Deck slides 1–4.
@@ -131,7 +120,7 @@ Learners use:
 - Capture portfolio screenshots.
 
 ### 14:45–15:00 — Transfer + close
-- 10-minute Kubernetes mapping (no deep theory).
+- 10-minute Kubernetes mapping optional (no deep theory).
 - Remind cleanup.
 
 ---
@@ -206,7 +195,7 @@ Expected observation:
 
 ---
 
-## 7) Learner activities (short, no chaos)
+## 7) Learner activities (suggested)
 
 ### Activity 1 (pairs, 7 minutes): “Find the model step”
 Inputs:
