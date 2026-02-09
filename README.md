@@ -1,4 +1,5 @@
-# AI6 Workshop 5 (5.W): "Scale or Fail" (Orchestrating Complex ML Pipelines in Production)
+# AI6 Workshop 5
+# "Scale or Fail" _(Orchestrating Complex ML Pipelines in Production)_
 
 Welcome to today's workshop, which is designed for a 5‑hour coached session where:
 - you **do not write code**
