@@ -1,17 +1,17 @@
-# AI6 Unit 5.W — Scale or Fail (FINAL)
+# AI6 Workshop 5 (5.W): "Scale or Fail"
 
-This is the **MVP** Unit 5.W workshop pack for AI6.
+Welcome to today's workshop, which is designed for a 5‑hour coached session where:
+- you **do not write code**
+- you **do not debug code**
+- everything is **evidence‑driven**
+to teach you what you need to know about **scalability** in MLOps.
 
-It is designed for a 5‑hour coached session where:
-- apprentices **do not write code**
-- coaches **do not debug Python**
-- everything is **repeatable** and **evidence‑driven**
-- the theme stays tight: **scalability first**
-
-**Spine (say it all day):**
+**The three mantras for today (say it all day):**
 - **Scaling is the job.**
 - **Orchestration is the mechanism.**
 - **Root Cause Analysis (RCA) is the safety net.**
+
+This will be explained in the short coach intro with the slides.
 
 ## Start here
 - `coach/coach_playbook.md` — the run‑of‑show (what to say + what to click)
