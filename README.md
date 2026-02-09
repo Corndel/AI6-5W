@@ -60,3 +60,10 @@ Designed to be cheap and low-risk in a sandbox:
 - burst size defaults to 40 (tweakable)
 - no external model downloads
 - no databases / queues / endpoints
+
+## Key Lingo
+Many of the terms that could be new to you are explained you in handouts/glossary.md.
+An important but somewhat confusing concept for today is P95, so let's look at it now:
+__The P95 duration__ (95th percentile) _is a performance metric indicating that 95% of requests or transactions finish faster than a specific threshold, while the slowest 5% take longer. It is used to identify bottlenecks, measure the user experience for the slowest transactions, and ignore outliers that skew averages_
+
+You're now ready to continue! Enjoy the workshop!
