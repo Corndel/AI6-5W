@@ -1,4 +1,4 @@
-# Architecture (ASCII)
+# Architecture
 
 ```
                 (Burst load)
