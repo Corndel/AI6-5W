@@ -9,18 +9,18 @@
 **Orchestrating Complex ML Pipelines in Production**  
 **Scale or Fail (MVP Workshop)**
 
-Speaker notes:
+ notes:
 - Today’s workshop is one story.
 - You will not write code. You will run a real pipeline, break it under load, then fix it.
 
 ---
 
-## Slide 2 — The Spine (North Star)
+## Slide 2 — The Mantras for today :-)
 **Scaling is the job.**  
 **Orchestration is the mechanism.**  
 **Root Cause Analysis is the safety net.**
 
-Speaker notes:
+ notes:
 - Everything we do today fits one of these sentences.
 - If something doesn’t fit, we ignore it.
 
@@ -37,7 +37,7 @@ Goal:
   - Technical
   - Cancellation
 
-Speaker notes:
+ notes:
 - This is common in industry: triage, routing, embeddings.
 - We’re not chasing accuracy today. We’re chasing *survival under load*.
 
@@ -51,7 +51,7 @@ In this workshop we use a **safe, deterministic simulation** that produces:
 - a MiniLM-style embedding shape (384 dims)
 - a route decision + confidence score
 
-Speaker notes:
+ notes:
 - This avoids dependency/pip-install pain and keeps coaches sane.
 - The scaling behaviour is the same: the “model step” is heavier than the others.
 
@@ -64,7 +64,7 @@ Is the bottleneck:
 - The model step (embedding/inference)?
 - Post-model (routing/formatting)?
 
-Speaker notes:
+ notes:
 - You only scale what is limiting you.
 - If you scale the wrong thing, nothing improves.
 
@@ -77,7 +77,7 @@ We intentionally use only:
 - **CloudWatch dashboard + logs** (observability)
 - **CloudShell + CloudFormation** (repeatable setup)
 
-Speaker notes:
+ notes:
 - No API Gateway. No databases. No queues. MVP only.
 - Every extra service is another way to lose 30 minutes.
 
@@ -89,7 +89,7 @@ Speaker notes:
 2) Embed/“Model” Lambda (slow + throttled on purpose)
 3) Postprocess Lambda (fast)
 
-Speaker notes:
+ notes:
 - The middle step is designed to be the bottleneck.
 - This makes “what are we scaling?” obvious.
 
@@ -101,7 +101,7 @@ When load increases, watch:
 - **Errors** (failed executions)
 - **Throttles** (requests rejected due to limits)
 
-Speaker notes:
+ notes:
 - These are your production senses.
 
 ---
@@ -127,7 +127,7 @@ Then run:
 - `./scripts/00_set_region.sh`
 - `./scripts/01_deploy.sh`
 
-Speaker notes:
+ notes:
 - You can narrate while it deploys.
 - Ask learners to keep the stack name exactly as provided.
 
@@ -137,9 +137,6 @@ Speaker notes:
 Show learners where to find:
 - Step Functions → State machines → **AI6-Unit5W-ScaleOrFail-state-machine**
 - CloudWatch → Dashboards → **AI6-Unit5W-ScaleOrFail-dashboard**
-
-Speaker notes:
-- Keep this visual. Don’t explain everything, just “here’s where we look later”.
 
 ---
 
@@ -151,7 +148,7 @@ What learners should see:
 - execution succeeds
 - output includes `route`, `route_score`, `priority`
 
-Speaker notes:
+ notes:
 - Confirm the pipeline works before we scale it.
 - That’s a real production habit.
 
@@ -176,7 +173,7 @@ What learners should see (within a few minutes):
 - Embed throttles rise
 - Step Functions failures rise (some executions fail)
 
-Speaker notes:
+ notes:
 - The wall is intentional.
 - Now we can practise the production response.
 

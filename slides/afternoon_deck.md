@@ -10,7 +10,7 @@
 **Orchestration is the mechanism.**  
 **Root Cause Analysis is the safety net.**
 
-Speaker notes:
+ notes:
 - We already saw the wall.
 - Now we learn how to respond when the wall becomes a failure.
 
@@ -23,7 +23,7 @@ Orchestration is how we:
 - apply **timeouts**
 - see *where time is spent*
 
-Speaker notes:
+ notes:
 - Orchestration doesn’t magically fix a bottleneck.
 - It gives you leverage and visibility.
 
@@ -36,7 +36,7 @@ RCA is:
 2) **Classify the bottleneck**
 3) **Pick the first safe action**
 
-Speaker notes:
+ notes:
 - Today we do “first action”, not “perfect fix”.
 
 ---
@@ -49,7 +49,7 @@ When a pipeline doesn’t scale, it is usually:
 3) **Timed out** (slow dependency / queue/backlog)
 4) **Bad input** (payload/schema)
 
-Speaker notes:
+ notes:
 - We’ll practise this like triage.
 
 ---
@@ -68,7 +68,7 @@ Classification:
 First action:
 - Add validation / reject early / cap payloads (already in preprocess)
 
-Speaker notes:
+ notes:
 - This is boring-but-important engineering.
 - “Fail fast” is a scaling strategy.
 
@@ -86,7 +86,7 @@ Evidence sources:
 Classification:
 - **Throttled**
 
-Speaker notes:
+ notes:
 - This is the classic “we’re popular now” incident.
 
 ---
@@ -117,7 +117,7 @@ Expected change:
 - More executions succeed
 - “Wall” moves
 
-Speaker notes:
+ notes:
 - This is “horizontal scaling” in serverless terms: more concurrent workers.
 
 ---
@@ -130,7 +130,7 @@ Scaling knobs are trade-offs:
   - cold starts
   - downstream bottlenecks
 
-Speaker notes:
+ notes:
 - Keep it short. Don’t drift into billing/SLOs.
 
 ---
@@ -144,7 +144,7 @@ What you did today maps to Kubernetes:
 - Step Functions graph ↔ DAG view (Argo/Airflow)
 - CloudWatch metrics ↔ Prometheus/Grafana
 
-Speaker notes:
+ notes:
 - Don’t teach Kubernetes.
 - Teach “you already know the shapes”.
 
@@ -156,7 +156,7 @@ Learners capture 3 pieces of evidence:
 2) A Step Functions execution showing failure (red) and success (green)
 3) One sentence explaining “what we scaled” and why
 
-Speaker notes:
+ notes:
 - This is directly transferable to workplace narratives.
 
 ---
