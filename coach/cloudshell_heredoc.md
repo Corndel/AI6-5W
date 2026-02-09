@@ -254,7 +254,6 @@ Resources:
                 "Retry": [
                   {
                     "ErrorEquals": [
-                      "Lambda.TooManyRequestsException",
                       "Lambda.ServiceException",
                       "Lambda.AWSLambdaException",
                       "Lambda.SdkClientException"
