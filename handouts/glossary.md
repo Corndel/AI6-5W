@@ -1,6 +1,5 @@
-# One-page Glossary (Bridge to “Senior Terms”)
+# One-page Glossary
 
-Use this at the end, or as a leave-behind.
 
 - **Scaling**: keeping the system responsive when traffic grows.
 - **Bottleneck**: the slowest/most limited step that controls overall throughput.
