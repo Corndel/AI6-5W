@@ -9,13 +9,13 @@
 
 ---
 
-## The spine (say this early, repeat it often)
+## Your "mantra for the day" (please say this early, repeat it often if you can)
 
 > **Scaling is the job.**  
 > **Orchestration is the mechanism.**  
 > **Root Cause Analysis is the safety net.**
 
-Everything in this workshop exists to support that sentence.
+Everything in this workshop exists to support that "holy trinity" :-) In a neat way, they are learning Scaling, orchestration and RCA, which nicely ties their existing MLOps concepts together.
 
 ---
 
