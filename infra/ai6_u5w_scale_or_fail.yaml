@@ -8,11 +8,6 @@ Parameters:
   WorkshopName:
     Type: String
     Default: AI6-Unit5W-ScaleOrFail
-  EmbedReservedConcurrency:
-    Type: Number
-    Default: 2
-    MinValue: 0
-    Description: "Reserved concurrency for the Embed Lambda to create an intentional scaling wall."
   SimulatedInferMs:
     Type: Number
     Default: 250
@@ -204,7 +199,7 @@ Resources:
   # ------------------------------------------------------------
   # Step Functions
   # ------------------------------------------------------------
-  TicketTriageStateMachine:
+ TicketTriageStateMachine:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       StateMachineName: !Sub "${WorkshopName}-state-machine"
@@ -212,67 +207,75 @@ Resources:
       DefinitionString:
         Fn::Sub: |
           {
-            "Comment": "AI6 Unit 5.W: Scale or Fail - Preprocess -> Embed -> Postprocess",
-            "StartAt": "Preprocess",
+            "Comment": "AI6 Unit 5.W: Scale or Fail - batch Map over tickets (Preprocess -> Embed -> Postprocess)",
+            "StartAt": "EnsureDefaults",
             "States": {
-              "Preprocess": {
-                "Type": "Task",
-                "Resource": "arn:aws:states:::lambda:invoke",
-                "Parameters": {
-                  "FunctionName": "${PreprocessFunction.Arn}",
-                  "Payload.$": "$"
-                },
-                "OutputPath": "$.Payload",
-                "Next": "Embed"
-              },
-              "Embed": {
-                "Type": "Task",
-                "Resource": "arn:aws:states:::lambda:invoke",
-                "Parameters": {
-                  "FunctionName": "${EmbedFunction.Arn}",
-                  "Payload.$": "$"
-                },
-                "OutputPath": "$.Payload",
-                "Retry": [
+              "EnsureDefaults": {
+                "Type": "Choice",
+                "Choices": [
                   {
-                    "ErrorEquals": [
-                      "Lambda.TooManyRequestsException",
-                      "Lambda.ServiceException",
-                      "Lambda.AWSLambdaException",
-                      "Lambda.SdkClientException"
-                    ],
-                    "IntervalSeconds": 1,
-                    "MaxAttempts": 3,
-                    "BackoffRate": 2.0
+                    "Variable": "$.max_concurrency",
+                    "IsPresent": true,
+                    "Next": "ProcessTickets"
                   }
                 ],
-                "Next": "Postprocess"
+                "Default": "SetDefaults"
               },
-              "Postprocess": {
-                "Type": "Task",
-                "Resource": "arn:aws:states:::lambda:invoke",
+              "SetDefaults": {
+                "Type": "Pass",
                 "Parameters": {
-                  "FunctionName": "${PostprocessFunction.Arn}",
-                  "Payload.$": "$"
+                  "tickets.$": "$.tickets",
+                  "max_concurrency": 2
                 },
-                "OutputPath": "$.Payload",
-                "Retry": [
-                  {
-                    "ErrorEquals": [
-                      "Lambda.ServiceException",
-                      "Lambda.AWSLambdaException",
-                      "Lambda.SdkClientException"
-                    ],
-                    "IntervalSeconds": 1,
-                    "MaxAttempts": 2,
-                    "BackoffRate": 2.0
+                "Next": "ProcessTickets"
+              },
+              "ProcessTickets": {
+                "Type": "Map",
+                "ItemsPath": "$.tickets",
+                "MaxConcurrencyPath": "$.max_concurrency",
+                "ItemProcessor": {
+                  "ProcessorConfig": {
+                    "Mode": "INLINE"
+                  },
+                  "StartAt": "Preprocess",
+                  "States": {
+                    "Preprocess": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:states:::lambda:invoke",
+                      "Parameters": {
+                        "FunctionName": "${PreprocessFunction.Arn}",
+                        "Payload.$": "$"
+                      },
+                      "OutputPath": "$.Payload",
+                      "Next": "Embed"
+                    },
+                    "Embed": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:states:::lambda:invoke",
+                      "Parameters": {
+                        "FunctionName": "${EmbedFunction.Arn}",
+                        "Payload.$": "$"
+                      },
+                      "OutputPath": "$.Payload",
+                      "Next": "Postprocess"
+                    },
+                    "Postprocess": {
+                      "Type": "Task",
+                      "Resource": "arn:aws:states:::lambda:invoke",
+                      "Parameters": {
+                        "FunctionName": "${PostprocessFunction.Arn}",
+                        "Payload.$": "$"
+                      },
+                      "OutputPath": "$.Payload",
+                      "End": true
+                    }
                   }
-                ],
+                },
+                "ResultPath": "$.results",
                 "End": true
               }
             }
           }
-
   # ------------------------------------------------------------
   # CloudWatch dashboard (basic + minimal)
   # ------------------------------------------------------------
@@ -291,7 +294,7 @@ Resources:
                 "width": 24,
                 "height": 2,
                 "properties": {
-                  "markdown": "# AI6 Unit 5.W — Scale or Fail\\n**Scaling is the job. Orchestration is the mechanism. RCA is the safety net.**\\n\\nWatch Embed throttles + duration during the burst."
+                  "markdown": "# AI6 Unit 5.W — Scale or Fail\\n**Scaling is the job. Orchestration is the mechanism. RCA is the safety net.**\\n\\nWatch Embed concurrent executions + duration during the burst."
                 }
               },
               {
@@ -314,20 +317,20 @@ Resources:
                   "period": 60
                 }
               },
-              {
+               {
                 "type": "metric",
                 "x": 12,
                 "y": 2,
                 "width": 12,
                 "height": 6,
                 "properties": {
-                  "title": "Embed step: Duration p95 + Throttles",
+                  "title": "Embed step: Duration p95 + ConcurrentExecutions (max)",
                   "view": "timeSeries",
                   "stacked": false,
                   "region": "${AWS::Region}",
                   "metrics": [
                     [ "AWS/Lambda", "Duration", "FunctionName", "${EmbedFunction}", { "stat": "p95" } ],
-                    [ ".", "Throttles", "FunctionName", "${EmbedFunction}", { "stat": "Sum", "yAxis": "right" } ]
+                    [ ".", "ConcurrentExecutions", "FunctionName", "${EmbedFunction}", { "stat": "Maximum", "yAxis": "right" } ]
                   ],
                   "period": 60
                 }
