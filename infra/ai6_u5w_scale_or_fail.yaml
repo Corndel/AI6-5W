@@ -199,7 +199,7 @@ Resources:
   # ------------------------------------------------------------
   # Step Functions
   # ------------------------------------------------------------
- TicketTriageStateMachine:
+  TicketTriageStateMachine:
     Type: AWS::StepFunctions::StateMachine
     Properties:
       StateMachineName: !Sub "${WorkshopName}-state-machine"
