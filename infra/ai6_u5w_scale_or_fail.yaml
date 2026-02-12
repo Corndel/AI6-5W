@@ -105,7 +105,6 @@ Resources:
       Role: !GetAtt LambdaExecutionRole.Arn
       MemorySize: 256
       Timeout: 6
-      ReservedConcurrentExecutions: !Ref EmbedReservedConcurrency
       Environment:
         Variables:
           EMBED_DIM: "384"
