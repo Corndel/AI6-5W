@@ -69,22 +69,4 @@ if [ "$status" != "SUCCEEDED" ]; then
   exit 1
 fi
 
-echo ""
-echo "Output summary (counts):"
-
-aws stepfunctions describe-execution --execution-arn "$EXEC_ARN" --query "output" --output json | python3 - <<'PY'
-import json, sys, collections
-out = json.loads(sys.stdin.read())
-res = out.get("results", [])
-routes = collections.Counter([r.get("route","unknown") for r in res])
-priorities = collections.Counter([r.get("priority","?") for r in res])
-actions = collections.Counter([r.get("action","?") for r in res])
-
-print(f"- tickets_processed: {len(res)}")
-print(f"- routes: {dict(routes)}")
-print(f"- priorities: {dict(priorities)}")
-print(f"- actions: {dict(actions)}")
-PY
-
-echo ""
 echo "Next: CloudWatch Dashboard -> look for Embed Duration p95 and Embed ConcurrentExecutions (max)."
