@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
-STACK_NAME="${STACK_NAME:-ai6-u5w-scaleorfail}"
-NEW_RC="${NEW_RC:-10}"
 
-FN_NAME="$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].Outputs[?OutputKey=='EmbedFunctionName'].OutputValue" --output text)"
-echo "Embed function: $FN_NAME"
-echo "Setting reserved concurrency to: $NEW_RC"
+NEW_MAX_CONCURRENCY="${NEW_MAX_CONCURRENCY:-10}"
+N="${N:-40}"
 
-aws lambda put-function-concurrency --function-name "$FN_NAME" --reserved-concurrent-executions "$NEW_RC"
-aws lambda get-function-concurrency --function-name "$FN_NAME" --output table
+echo "Scaling via Step Functions Map parallelism."
+echo "Re-running burst with MAX_CONCURRENCY=$NEW_MAX_CONCURRENCY (N=$N)."
+
+MAX_CONCURRENCY="$NEW_MAX_CONCURRENCY" N="$N" ./scripts/03_burst_load.sh
