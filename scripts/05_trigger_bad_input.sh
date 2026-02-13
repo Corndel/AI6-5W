@@ -2,13 +2,19 @@
 set -euo pipefail
 STACK_NAME="${STACK_NAME:-ai6-u5w-scaleorfail}"
 
-SM_ARN="$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].Outputs[?OutputKey=='StateMachineArn'].OutputValue" --output text)"
+SM_ARN="$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" \
+  --query "Stacks[0].Outputs[?OutputKey=='StateMachineArn'].OutputValue | [0]" --output text)"
 echo "State machine: $SM_ARN"
 
 # Deterministic >5000 char payload to trigger PayloadTooLarge in Preprocess.
-INPUT="$(python - <<'PY'
+INPUT="$(python3 - <<'PY'
 import json
-print(json.dumps({"ticket_id":"T-BAD-1","text":"x"*5100}))
+print(json.dumps({
+  "max_concurrency": 1,
+  "tickets": [
+    {"ticket_id": "T-BAD-1", "text": "x"*5100}
+  ]
+}))
 PY
 )"
 
